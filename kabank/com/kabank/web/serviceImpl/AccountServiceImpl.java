@@ -1,9 +1,8 @@
-package com.kabank.web.service;
+package com.kabank.web.serviceImpl;
 
 import java.util.Random;
-import java.util.Scanner;
 
-public class AccountService {
+public class AccountServiceImpl {
 	/* 이 간격 내에 디폴트 생성자가 있음  
 	 public AccountService() <- default 생성자 (existing)
 	 * */
