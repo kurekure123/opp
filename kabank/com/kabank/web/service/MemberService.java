@@ -1,5 +1,7 @@
 package com.kabank.web.service;
 
+import java.util.Vector;
+
 import com.kabank.web.bean.MemberBean;
 
 public interface MemberService {
@@ -10,7 +12,11 @@ public interface MemberService {
 	public void addMember(MemberBean member);
 	public void addcustomer(MemberBean customer);
 	public int findAge(String ssn);
+	public Vector<MemberBean> list();
 	public int count();
-	public MemberBean[] list(/*파라 미터*/);
-	
+	public void deleteAll();
+	public void delete(String id);
+	public String login(MemberBean member);
+	public Vector<MemberBean> findByName(String name);
+	public MemberBean findById(String id);
 }	

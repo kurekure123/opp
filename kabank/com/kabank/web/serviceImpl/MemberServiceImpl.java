@@ -1,41 +1,35 @@
 package com.kabank.web.serviceImpl;
 
+import java.lang.reflect.Member;
 import java.util.Calendar;
+import java.util.Vector;
 
 import com.kabank.web.bean.MemberBean;
-import com.kabank.web.controller.Portal;
 import com.kabank.web.service.MemberService;
 
 public class MemberServiceImpl implements MemberService {
+	
+	private Vector<MemberBean> members;
+	/* private MemberBean[] members는 집합체 (집합의 덩어리)인데
+	 * MemberBean 에 옮겨 놓게 된다면 집합 안에 집합체를 두는 격이다.
+	 * */
 
-	private int count = 0;
-	private MemberBean[] members;
-
-	public MemberServiceImpl(int count) {
-		members = new MemberBean[count];
-		this.count = 0;
+	public MemberServiceImpl() {
+		members = new Vector<MemberBean>(10,10);
 	}
 
 	/*
 	 * @ 뒤에 override는 뒤에 수식이 암호화
 	 */
 
-	public void setCount(int count) {
-		this.count = count;
-	}
-
-	public int getCount(int count) {
-		return count;
-	}
 
 	public void addCustomer(MemberBean customer) {
-		count++;
 	}
 
 	@Override
 	public int createCustomNum() {
-		int foo = 0;
-		return foo;
+		int num = 0;
+		return num;
 		// algorithm AccountServiceImpl
 	}
 
@@ -81,19 +75,81 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void addMember(MemberBean member) {
-		members[count] = member;
-		count++;
+		members.add(member);
+	//	members[count] = member;
+		/* members 라는 집합의 [] 번째 객체는 = 객체 
+		 * */
 
 	}
-
-	public MemberBean[] list(/* 파라 미터 */) {
+	@Override
+	public Vector<MemberBean> list() {
 		return members;
 	}
 
 	@Override
 	public int count() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return members.size();
 	}
+
+	@Override
+	public void deleteAll() {
+		members.clear();
+	}
+
+	@Override
+	public void delete(String id) {
+		int j = members.size();
+		for(int i = 0; i < members.size(); i++) {
+			if(id.equals(members.get(i).getId())) {
+			}
+		}
+	}
+	@Override
+	public String login(MemberBean member) {
+		String message = "아이디가 존재하지 않습니다";
+		for(int i = 0; i < members.size(); i++) {
+			/*  if(member.getId().equals(members.get(i).getId())){
+			 *   (member.getPw().equals(members.get(i).getPw())) ? "비밀번호가 틀립니다" : "존재하지 않는 아이디 입니다" ;
+			 *    }
+			 **/
+			 if(member.getId().equals(members.get(i).getId())) {
+				if(member.getPw().equals(members.get(i).getPw())) {
+					message = "로그인 되었습니다";
+				}else if( !member.getPw().equals(members.get(i).getPw())) {
+					message = "비번이 틀렸습니다";
+					return message;
+				}
+			} 
+		
+		}
+		return message;
+
+	}
+	@Override
+	public MemberBean findById(String id) {
+		MemberBean member = new MemberBean();
+		for(int i = 0; i < members.size(); i++) {
+			if(id.equals(members.get(i).getId())) {
+				member = members.get(i);
+			}
+		}
+		return member;
+	}
+	
+	@Override
+	public Vector<MemberBean> findByName(String name) {
+		Vector<MemberBean> temp = new Vector<>();
+		int count = 0;
+			for(int i = 0; i < members.size(); i++) {
+				if(name.equals(members.get(i).getName())) {
+					
+				}
+			}
+		return temp;
+	}
+
+	
+	
 
 }
